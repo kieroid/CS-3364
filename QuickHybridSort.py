@@ -29,7 +29,7 @@ Create a sorting algorithm QuickHybridSort(A[n], K) with two inputs:
 # Task 1 will begin here.
 #########################
 
-#insertion sort
+# insertionSort (self explained. its an insertion sort algorithm)
 
 def insertionSort(array):
     #print("Sorting:", array);
@@ -47,7 +47,7 @@ def insertionSort(array):
         array[previousNum + 1] = storedElement;
     return array;
 
-#partitioning
+# partition (splits up the array into a smaller piece)
 
 def partition(array, low, high):
     #print("Partitioning:",array);
@@ -61,7 +61,7 @@ def partition(array, low, high):
     array[i + 1], array[high] = array[high], array[i + 1];
     return i + 1;
 
-#recursivehelper
+# recursiveHelper (called by QuickHybridSort)
 
 def recursiveHelper(array, low, high, K):
     if(low < high):
@@ -74,7 +74,7 @@ def recursiveHelper(array, low, high, K):
             recursiveHelper(array, low, pivot - 1, K);
             recursiveHelper(array, pivot + 1, high, K);
 
-#quickhybridsort
+# QuickHybridSort function
 
 def QuickHybridSort(array, K):
     arrayCopy = array.copy();
@@ -82,3 +82,32 @@ def QuickHybridSort(array, K):
     recursiveHelper(arrayCopy, 0, len(arrayCopy) - 1, K);
     #...
     return arrayCopy;
+
+
+# test correction (for verification)
+
+from random import randint
+
+def quickHybridSortTest(K):
+    testArray = [];
+    for num in range(20):
+        testArray.append(randint(10,98))
+    
+    if(QuickHybridSort(testArray,K) == sorted(testArray)):
+        #print(testArray, "- Passed!");
+        return(0);
+    else:
+        #print(testArray, "- Failed!");
+        return(1);
+
+def verifySortAlgorithm():
+    a = 0;
+    for i in range(20):
+        print("Testing for K =", i);
+        for j in range(10):
+            a += quickHybridSortTest(i);
+        if(a == 0):
+            print("Success for all K values!");
+
+
+
