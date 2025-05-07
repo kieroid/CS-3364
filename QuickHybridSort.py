@@ -25,6 +25,10 @@ Create a sorting algorithm QuickHybridSort(A[n], K) with two inputs:
     - Repeat Tasks 2 and 3 using pre-sorted input. How do results differ? Why?
     - Include observations and explanations for sorted input tests.
 """
+import time
+from random import randint
+
+timePerK = [];
 
 # Task 1 will begin here.
 #########################
@@ -84,14 +88,15 @@ def QuickHybridSort(array, K):
     return arrayCopy;
 
 
-# test correction (for verification)
+# quickHybridSortTest (for verification)
 
-from random import randint
-
-def quickHybridSortTest(K):
+def quickHybridSortTest(K,totalKTested):
     testArray = [];
-    for num in range(20):
-        testArray.append(randint(10,98))
+    for i in range(totalKTested):
+        testArray.append(i);
+
+    #for num in range(totalKTested):
+    #    testArray.append(randint(100,998))
     
     if(QuickHybridSort(testArray,K) == sorted(testArray)):
         #print(testArray, "- Passed!");
@@ -100,14 +105,26 @@ def quickHybridSortTest(K):
         #print(testArray, "- Failed!");
         return(1);
 
-def verifySortAlgorithm():
+# verifySortAlgorithm (checks if all tests passed)
+
+def verifySortAlgorithm(numPerK = 8, totalKTested = 25):
     a = 0;
-    for i in range(20):
-        print("Testing for K =", i);
-        for j in range(10):
-            a += quickHybridSortTest(i);
-        if(a == 0):
-            print("Success for all K values!");
+    for i in range(1,totalKTested + 1):
+        #print("Testing for K =", i);
+        for _ in range(numPerK):
+            startTime = time.time();
+            a += quickHybridSortTest(i,totalKTested);
+            timePerK.append([time.time() - startTime,i]);
+        #if(a == 0):
+        #    print("Success for all K values!");
+    return(a);
 
+# uncomment below to get working
 
+#errors = verifySortAlgorithm();
+#for i in range(len(timePerK)):
+#    print(str(timePerK[i][0]) + ", " + str(timePerK[i][1]));
+
+#print(f"{'\033[1m'}Test data ended. Checking for errors...")
+#print(f"{'\033[91m'}TOTAL ERRORS:", errors)
 
